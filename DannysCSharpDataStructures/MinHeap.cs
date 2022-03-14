@@ -10,7 +10,7 @@ namespace DannysCSharpDataStructures
     /// min heap that includes the decrease key operation that is needed for dijkstras algo
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MinHeap<T> where T: IComparable<T>
+    public class MinHeap<T> where T : IComparable<T>
     {
         private List<T> array = new List<T>();
 
@@ -44,7 +44,7 @@ namespace DannysCSharpDataStructures
             //add the new element to the map
             map.Add(element, n);
             //we need to bubble this element as far as we can to the top
-            while (n > 0 && array[n].CompareTo(array[n/2]) == -1) //as long as the element above it in the tree is greater than this element we just added
+            while (n > 0 && array[n].CompareTo(array[n / 2]) == -1) //as long as the element above it in the tree is greater than this element we just added
             {
                 //perform a swap of the two elements
                 Swap(n, n / 2);
@@ -106,11 +106,12 @@ namespace DannysCSharpDataStructures
 
             //place the last element in the tree at the top and bubble down
             array[0] = array[array.Count - 1];
+            map[array[0]] = 0;
             array.RemoveAt(array.Count - 1);
 
             int n = 0;
 
-            while(n < array.Count)
+            while (n < array.Count)
             {
                 int min = n;
                 //the node to the bottom right of the current node
@@ -118,12 +119,12 @@ namespace DannysCSharpDataStructures
                 //the node to the bottom left of the current node
                 int botRight = 2 * n + 2;
                 //if the bot left is less than the current min node then we assign this as the new min node 
-                if(botLeft < array.Count && array[botLeft].CompareTo(array[min]) == -1)
+                if (botLeft < array.Count && array[botLeft].CompareTo(array[min]) == -1)
                 {
                     min = botLeft;
                 }
                 //if the bot right is less than the current min node then we assign this as the new min node
-                if(botRight < array.Count && array[botRight].CompareTo(array[min]) == -1)
+                if (botRight < array.Count && array[botRight].CompareTo(array[min]) == -1)
                 {
                     min = botRight;
                 }
@@ -132,9 +133,7 @@ namespace DannysCSharpDataStructures
                     break;
 
                 //perform a swap with the min node and the node above it
-                T tmp = array[n];
-                array[n] = array[min];
-                array[min] = tmp;
+                Swap(n, min);
                 n = min;
             }
 
